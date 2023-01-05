@@ -12,5 +12,5 @@ services:
       MYSQL_DATABASE: e-commerce
       MYSQL_ROOT_USER: root
       MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: jlomar12
-      MYSQL_PASSWORD: jlomar12
+      MYSQL_ROOT_PASSWORD: ********
+      MYSQL_PASSWORD: ********
