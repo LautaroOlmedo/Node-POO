@@ -2,13 +2,19 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { Request, Response } from "express";
+import { Connection, createConnection, DataSource } from "typeorm";
+import "reflect-metadata";
 // ---------- ---------- ---------- ---------- ----------
 import { UsersRouter } from "./users/users.router";
-class ServerBootstrap {
+import { ConfigServer } from "./config/config";
+
+class ServerBootstrap extends ConfigServer {
   constructor() {
+    super();
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(morgan("dev"));
+    this.dbConnect();
     this.app.use(cors());
     this.app.use("/api", this.routers());
     this.app.get("/", (req: Request, res: Response) => {
@@ -31,9 +37,18 @@ class ServerBootstrap {
     );
   }
 
+  async dbConnect(): Promise<Connection> {
+    try {
+      return await new DataSource(this.typeORMConfig).initialize();
+    } catch (e) {
+      console.log(e);
+      throw new Error("db is not connected");
+    }
+  }
+
   // ---------- ---------- ---------- VARIABLES ---------- ---------- ----------
   public app: express.Application = express();
-  private port = 8000;
+  private port: number = this.getNumberEnv("PORT");
 }
 
 new ServerBootstrap();
