@@ -62,13 +62,4 @@ export abstract class ConfigServer {
       throw new Error("db is not connected");
     }
   }
-
-  /* async dbConnect(): Promise<Connection> {
-    try {
-      return await createConnection(this.typeORMConfig);
-    } catch (e) {
-      console.log(e);
-      throw new Error("db is not connected");
-    }
-  }*/
 }

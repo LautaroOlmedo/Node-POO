@@ -19,11 +19,11 @@ export class UsersService extends BaseService<UserEntity> {
     return (await this.execRepository).save(body);
   }
 
-  async update(id: string): Promise<DeleteResult> {
-    return (await this.execRepository).delete({ id });
+  async update(id: string, body: any): Promise<UpdateResult> {
+    return (await this.execRepository).update(id, body);
   }
 
-  async delete(id: string, body: any): Promise<UpdateResult> {
-    return (await this.execRepository).update(id, body);
+  async delete(id: string): Promise<DeleteResult> {
+    return (await this.execRepository).delete({ id });
   }
 }

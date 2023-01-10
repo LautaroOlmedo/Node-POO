@@ -38,7 +38,6 @@ class ServerBootstrap extends ConfigServer {
     );
   }
 
-  // ---------- ---------- ---------- VARIABLES ---------- ---------- ----------
   public app: express.Application = express();
   private port: number = this.getNumberEnv("PORT");
 }
