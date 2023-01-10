@@ -1,12 +1,16 @@
-export enum payment_method {
+export enum paymentMethod {
   CASH = "CASH",
+
   CREDIT_CARD = "CREDIT_CARD",
+
   TRANSACTION = "TRANSACTION",
 }
 
-export enum status {
+export enum transactionStatus {
   RELEASED = "RELEASED",
+
   PENDING = "PENDING",
+
   REJECTED = "TREJECTED",
 }
 
@@ -20,4 +24,12 @@ export enum HttpStatus {
   FORBIDDEN = 403,
 
   INTERNAL_SERVER_ERROR = 500,
+}
+
+export enum RoleType {
+  USER = "USER",
+
+  CUSTOMER = "CUSTOMER",
+
+  ADMIN = "ADMIN",
 }

@@ -14,6 +14,7 @@ import { Exclude } from "class-transformer";
 // ---------- ---------- ---------- ---------- ----------
 import { BaseEntity } from "../../config/base.entity";
 import { CustomerEntity } from "../../customers/entities/customer.entity";
+import { RoleType } from "../../shared/enums";
 
 @Entity({ name: "users" })
 export class UserEntity extends BaseEntity {
@@ -44,4 +45,12 @@ export class UserEntity extends BaseEntity {
 
   @Column()
   city!: string;
+
+  @Column({
+    type: "enum",
+    enum: RoleType,
+    nullable: false,
+    default: RoleType.USER,
+  })
+  role!: RoleType;
 }

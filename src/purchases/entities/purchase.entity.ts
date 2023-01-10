@@ -14,7 +14,7 @@ import {
 import { BaseEntity } from "../../config/base.entity";
 import { CustomerEntity } from "../../customers/entities/customer.entity";
 import { PurchaseProductEntity } from "./purchase-product.entity";
-import { payment_method, status } from "../../shared/enums";
+import { paymentMethod, transactionStatus } from "../../shared/enums";
 
 @Entity({ name: "purchases" })
 export class PurchaseEntity extends BaseEntity {
@@ -28,9 +28,13 @@ export class PurchaseEntity extends BaseEntity {
   )
   purchaseProduct: PurchaseProductEntity[];
 
-  @Column({ type: "enum", enum: status, default: status.PENDING })
-  status!: string;
+  @Column({
+    type: "enum",
+    enum: transactionStatus,
+    default: transactionStatus.PENDING,
+  })
+  status!: transactionStatus;
 
-  @Column({ type: "enum", enum: payment_method, default: payment_method.CASH })
-  payment_method!: string;
+  @Column({ type: "enum", enum: paymentMethod, default: paymentMethod.CASH })
+  payment_method!: paymentMethod;
 }
