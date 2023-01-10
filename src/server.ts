@@ -2,7 +2,6 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { Request, Response } from "express";
-import { Connection, createConnection, DataSource } from "typeorm";
 import "reflect-metadata";
 // ---------- ---------- ---------- ---------- ----------
 import { UsersRouter } from "./users/users.router";
@@ -17,6 +16,7 @@ class ServerBootstrap extends ConfigServer {
     this.dbConnect();
     this.app.use(cors());
     this.app.use("/api", this.routers());
+
     this.app.get("/", (req: Request, res: Response) => {
       res.status(200).json({
         status: `accepted`,
@@ -24,6 +24,7 @@ class ServerBootstrap extends ConfigServer {
         message: `REST-API NodeJS+POO`,
       });
     });
+
     this.listen();
   }
 
@@ -35,15 +36,6 @@ class ServerBootstrap extends ConfigServer {
     this.app.listen(this.port, () =>
       console.log(`app listening on port => ${this.port}`)
     );
-  }
-
-  async dbConnect(): Promise<Connection> {
-    try {
-      return await new DataSource(this.typeORMConfig).initialize();
-    } catch (e) {
-      console.log(e);
-      throw new Error("db is not connected");
-    }
   }
 
   // ---------- ---------- ---------- VARIABLES ---------- ---------- ----------

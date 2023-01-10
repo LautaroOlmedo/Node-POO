@@ -1,4 +1,4 @@
-import { Entity, Column } from "typeorm";
+import { Entity, Column, OneToOne, JoinColumn } from "typeorm";
 import {
   IsNotEmpty,
   IsString,
@@ -9,12 +9,17 @@ import {
   MinLength,
   MaxLength,
 } from "class-validator";
+import { Exclude } from "class-transformer";
 
 // ---------- ---------- ---------- ---------- ----------
 import { BaseEntity } from "../../config/base.entity";
+import { CustomerEntity } from "../../customers/entities/customer.entity";
 
 @Entity({ name: "users" })
 export class UserEntity extends BaseEntity {
+  @OneToOne(() => CustomerEntity, (customer) => customer.user)
+  customer!: CustomerEntity;
+
   @Column()
   username!: string;
 
@@ -28,9 +33,10 @@ export class UserEntity extends BaseEntity {
   email!: string;
 
   @Column()
+  @Exclude()
   password!: string;
 
-  @Column()
+  @Column({ type: "integer" })
   age!: number;
 
   @Column()

@@ -1,5 +1,11 @@
 import * as dotenv from "dotenv";
-import { ConnectionOptions, DataSourceOptions } from "typeorm";
+import {
+  Connection,
+  ConnectionOptions,
+  DataSource,
+  DataSourceOptions,
+  createConnection,
+} from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 export abstract class ConfigServer {
@@ -47,4 +53,22 @@ export abstract class ConfigServer {
       namingStrategy: new SnakeNamingStrategy(), // userName => en db se guarda user_name
     };
   }
+
+  async dbConnect(): Promise<DataSource> {
+    try {
+      return await new DataSource(this.typeORMConfig).initialize();
+    } catch (e) {
+      console.log(e);
+      throw new Error("db is not connected");
+    }
+  }
+
+  /* async dbConnect(): Promise<Connection> {
+    try {
+      return await createConnection(this.typeORMConfig);
+    } catch (e) {
+      console.log(e);
+      throw new Error("db is not connected");
+    }
+  }*/
 }
