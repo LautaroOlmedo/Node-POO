@@ -11,9 +11,9 @@ export class UsersService extends BaseService<UserEntity> {
     return (await this.execRepository).find();
   }
 
-  /* async findOne(id: string): Promise<UserEntity | null> {
-    return (await this.execRepository).findOne({ id });
-  }*/
+  async findOne(id: string): Promise<UserEntity | null> {
+    return (await this.execRepository).findOneBy({ id });
+  }
 
   async create(body: UserDTO): Promise<UserEntity> {
     return (await this.execRepository).save(body);

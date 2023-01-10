@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 import { Request, Response } from "express";
 import "reflect-metadata";
+import { DataSource } from "typeorm";
 // ---------- ---------- ---------- ---------- ----------
 import { UsersRouter } from "./users/users.router";
 import { ConfigServer } from "./config/config";
@@ -30,6 +31,16 @@ class ServerBootstrap extends ConfigServer {
 
   routers(): Array<express.Router> {
     return [new UsersRouter().router];
+  }
+
+  async dbConnect(): Promise<DataSource | void> {
+    return this.initConnect
+      .then(() => {
+        console.log("Connect success");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   public listen() {

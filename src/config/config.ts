@@ -1,12 +1,7 @@
 import * as dotenv from "dotenv";
-import {
-  Connection,
-  ConnectionOptions,
-  DataSource,
-  DataSourceOptions,
-  createConnection,
-} from "typeorm";
+import { DataSource, DataSourceOptions } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
+import { AppDataSource } from "./data.source";
 
 export abstract class ConfigServer {
   constructor() {
@@ -38,25 +33,9 @@ export abstract class ConfigServer {
     return "." + arrEnv.join(".");
   }
 
-  public get typeORMConfig(): DataSourceOptions {
-    return {
-      type: "mysql",
-      host: this.getEnvironment("DB_HOST"),
-      port: this.getNumberEnv("DB_PORT"),
-      username: this.getEnvironment("DB_USER"),
-      password: this.getEnvironment("DB_PASSWORD"),
-      database: this.getEnvironment("DATABASE"),
-      entities: [__dirname + "/../**/*.entity{.ts,.js}"],
-      migrations: [__dirname + "/../../migrations/*{.ts,.js}"],
-      synchronize: true,
-      logging: false,
-      namingStrategy: new SnakeNamingStrategy(), // userName => en db se guarda user_name
-    };
-  }
-
-  async dbConnect(): Promise<DataSource> {
+  get initConnect(): Promise<DataSource> {
     try {
-      return await new DataSource(this.typeORMConfig).initialize();
+      return AppDataSource.initialize();
     } catch (e) {
       console.log(e);
       throw new Error("db is not connected");
