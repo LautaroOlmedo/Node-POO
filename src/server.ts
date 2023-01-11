@@ -7,6 +7,8 @@ import { DataSource } from "typeorm";
 // ---------- ---------- ---------- ---------- ----------
 import { UsersRouter } from "./users/users.router";
 import { ConfigServer } from "./config/config";
+import { CategoriesRouter } from "./categories/categories.router";
+import { CustomersRouter } from "./customers/customers.router";
 
 class ServerBootstrap extends ConfigServer {
   constructor() {
@@ -30,7 +32,11 @@ class ServerBootstrap extends ConfigServer {
   }
 
   routers(): Array<express.Router> {
-    return [new UsersRouter().router];
+    return [
+      new UsersRouter().router,
+      new CategoriesRouter().router,
+      new CustomersRouter().router,
+    ];
   }
 
   async dbConnect(): Promise<DataSource | void> {

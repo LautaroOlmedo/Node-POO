@@ -8,6 +8,7 @@ import {
   MinLength,
   MaxLength,
 } from "class-validator";
+import { RoleType } from "../../shared/enums";
 
 export class UserDTO {
   @IsNotEmpty()
@@ -33,4 +34,7 @@ export class UserDTO {
 
   @IsNotEmpty()
   city!: string;
+
+  @IsNotEmpty()
+  role!: RoleType;
 }

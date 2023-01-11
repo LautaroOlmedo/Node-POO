@@ -22,7 +22,7 @@ export class UsersController {
 
   async getUser(req: Request, res: Response) {
     try {
-      const data = "in progress";
+      const data = await this.usersService.findOne(req.params.id);
       return this.httpResponse.Ok(res, data);
     } catch (e) {
       console.log(e);
@@ -62,6 +62,7 @@ export class UsersController {
     try {
       const { id } = req.params;
       const data = this.usersService.delete(id);
+      return this.httpResponse.Ok(res, data);
     } catch (e) {
       console.log(e);
       return this.httpResponse.Error(res, e);

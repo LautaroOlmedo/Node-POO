@@ -12,7 +12,12 @@ export class UsersService extends BaseService<UserEntity> {
   }
 
   async findOne(id: string): Promise<UserEntity | null> {
-    return (await this.execRepository).findOneBy({ id });
+    const user = (await this.execRepository)
+      .createQueryBuilder("user")
+      .leftJoinAndSelect("user.customer", "customer")
+      .where({ id })
+      .getOne();
+    return user;
   }
 
   async create(body: UserDTO): Promise<UserEntity> {
