@@ -9,6 +9,7 @@ import { UsersRouter } from "./users/users.router";
 import { ConfigServer } from "./config/config";
 import { CategoriesRouter } from "./categories/categories.router";
 import { CustomersRouter } from "./customers/customers.router";
+import { ProductsRouter } from "./products/products.router";
 
 class ServerBootstrap extends ConfigServer {
   constructor() {
@@ -36,6 +37,7 @@ class ServerBootstrap extends ConfigServer {
       new UsersRouter().router,
       new CategoriesRouter().router,
       new CustomersRouter().router,
+      new ProductsRouter().router,
     ];
   }
 

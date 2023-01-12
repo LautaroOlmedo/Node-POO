@@ -1,17 +1,18 @@
 import { Request, Response } from "express";
 
 // ---------- ---------- ---------- ---------- ----------
-import { CustomersService } from "../services/customers.service";
+import { ProductsService } from "../services/products.service";
 import { HttpResponse } from "../../shared/response/htttp.response";
-export class CustomersController {
+
+export class ProductsController {
   constructor(
-    private readonly customersService: CustomersService = new CustomersService(),
+    private readonly productsService: ProductsService = new ProductsService(),
     private readonly httpResponse: HttpResponse = new HttpResponse()
   ) {}
 
-  async getCustomers(req: Request, res: Response) {
+  async getProducts(req: Request, res: Response) {
     try {
-      const data = await this.customersService.findAll();
+      const data = await this.productsService.findALl();
       return this.httpResponse.Ok(res, data);
     } catch (e) {
       console.log(e);
@@ -19,10 +20,10 @@ export class CustomersController {
     }
   }
 
-  async getCustomer(req: Request, res: Response) {
+  async getProduct(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const data = await this.customersService.findOne(id);
+      const data = await this.productsService.findOne(id);
       return this.httpResponse.Ok(res, data);
     } catch (e) {
       console.log(e);
@@ -30,9 +31,9 @@ export class CustomersController {
     }
   }
 
-  async createCustomer(req: Request, res: Response) {
+  async createProduct(req: Request, res: Response) {
     try {
-      const data = await this.customersService.create(req.body);
+      const data = await this.productsService.create(req.body);
       return this.httpResponse.Ok(res, data);
     } catch (e) {
       console.log(e);

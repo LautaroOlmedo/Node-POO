@@ -12,7 +12,7 @@ export class CategoriesController {
 
   async getCategories(req: Request, res: Response) {
     try {
-      const data = await this.categoriesService.getAllCategories();
+      const data = await this.categoriesService.findAll();
       return this.httpResponse.Ok(res, data);
     } catch (e) {
       console.log(e);
@@ -22,7 +22,7 @@ export class CategoriesController {
 
   async createCategory(req: Request, res: Response) {
     try {
-      const data = await this.categoriesService.createCategory(req.body);
+      const data = await this.categoriesService.create(req.body);
       return this.httpResponse.Ok(res, data);
     } catch (e) {
       console.log(e);

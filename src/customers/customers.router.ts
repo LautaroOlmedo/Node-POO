@@ -1,9 +1,14 @@
+// ---------- ---------- ---------- ---------- ----------
 import { BaseRouter } from "../shared/router/router";
 import { CustomersController } from "./controllers/customers.controller";
+import { CustomerMiddleware } from "./middlewares/customer.middleware";
 
-export class CustomersRouter extends BaseRouter<CustomersController> {
+export class CustomersRouter extends BaseRouter<
+  CustomersController,
+  CustomerMiddleware
+> {
   constructor() {
-    super(CustomersController);
+    super(CustomersController, CustomerMiddleware);
   }
   routes(): void {
     this.router.get("/customers", (req, res) => {

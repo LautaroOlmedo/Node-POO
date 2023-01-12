@@ -1,9 +1,13 @@
 import { BaseRouter } from "../shared/router/router";
 import { CategoriesController } from "./controllers/categories.controller";
+import { CategoryMiddleware } from "./middlewares/category.middleware";
 
-export class CategoriesRouter extends BaseRouter<CategoriesController> {
+export class CategoriesRouter extends BaseRouter<
+  CategoriesController,
+  CategoryMiddleware
+> {
   constructor() {
-    super(CategoriesController);
+    super(CategoriesController, CategoryMiddleware);
   }
   routes(): void {
     this.router.get("/categories", (req, res) => {

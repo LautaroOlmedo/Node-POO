@@ -11,12 +11,12 @@ export class CustomersService extends BaseService<CustomerEntity> {
     super(CustomerEntity);
   }
 
-  async getAllCustomers(): Promise<CustomerEntity[]> {
+  async findAll(): Promise<CustomerEntity[]> {
     const customers = (await this.execRepository).find();
     return customers;
   }
 
-  async getCustomer(id: string): Promise<CustomerEntity | null> {
+  async findOne(id: string): Promise<CustomerEntity | null> {
     /*const customer = (await this.execRepository)
       .createQueryBuilder("customer")
       .leftJoinAndSelect("customer.user", "user")
@@ -27,7 +27,7 @@ export class CustomersService extends BaseService<CustomerEntity> {
     return customer;
   }
 
-  async createCustomer(body: any): Promise<CustomerEntity> {
+  async create(body: any): Promise<CustomerEntity> {
     const newCustomer = (await this.execRepository).save(body);
     return newCustomer;
   }
