@@ -2,7 +2,7 @@ import { BaseService } from "../../config/base.service";
 // ---------- ---------- ---------- ---------- ----------
 import { CustomerEntity } from "../entities/customer.entity";
 import { HttpResponse } from "../../shared/response/htttp.response";
-import { EntityPropertyNotFoundError } from "typeorm";
+import { CustomerDTO } from "../dto/customer.dto";
 
 export class CustomersService extends BaseService<CustomerEntity> {
   constructor(
@@ -27,8 +27,7 @@ export class CustomersService extends BaseService<CustomerEntity> {
     return customer;
   }
 
-  async create(body: any): Promise<CustomerEntity> {
-    const newCustomer = (await this.execRepository).save(body);
-    return newCustomer;
+  async create(body: CustomerDTO): Promise<CustomerEntity> {
+    return (await this.execRepository).save(body);
   }
 }

@@ -22,11 +22,11 @@ export class CustomerEntity extends BaseEntity {
   user!: UserEntity;
 
   @OneToMany(() => PurchaseEntity, (purchases) => purchases.customer)
-  purchases!: PurchaseEntity[];
+  purchases?: PurchaseEntity[];
 
   @Column()
   address!: string;
 
-  @Column({ type: "varchar", length: 25 })
-  dni!: string;
+  @Column({ type: "varchar", length: 8 })
+  dni!: number;
 }
